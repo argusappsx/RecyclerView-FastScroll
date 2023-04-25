@@ -17,6 +17,7 @@
 package com.simplecityapps.recyclerview_fastscroll.views;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
@@ -29,6 +30,7 @@ import android.util.SparseIntArray;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.simplecityapps.recyclerview_fastscroll.R;
 import com.simplecityapps.recyclerview_fastscroll.interfaces.OnFastScrollStateChangeListener;
 import com.simplecityapps.recyclerview_fastscroll.utils.Utils;
 
