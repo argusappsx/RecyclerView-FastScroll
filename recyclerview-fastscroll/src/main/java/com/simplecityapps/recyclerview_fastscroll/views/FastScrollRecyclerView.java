@@ -35,6 +35,7 @@ import com.simplecityapps.recyclerview_fastscroll.utils.Utils;
 public class FastScrollRecyclerView extends RecyclerView implements RecyclerView.OnItemTouchListener {
 
     private FastScroller mScrollbar;
+    private boolean mFastScrollEnabled = true;
 
     /**
      * The current scroll state of the recycler view.  We use this in onUpdateScrollbar()
@@ -72,6 +73,16 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
 
     public FastScrollRecyclerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        TypedArray typedArray = context.getTheme().obtainStyledAttributes(
+                attrs, R.styleable.FastScrollRecyclerView, 0, 0);
+        try {
+            mFastScrollEnabled = typedArray.getBoolean(R.styleable.FastScrollRecyclerView_fastScrollThumbEnabled, true);
+        } finally {
+            typedArray.recycle();
+        }
+
+
         mScrollbar = new FastScroller(context, this, attrs);
         mScrollOffsetInvalidator = new ScrollOffsetInvalidator();
         mScrollOffsets = new SparseIntArray();
@@ -182,8 +193,14 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     @Override
     public void draw(Canvas c) {
         super.draw(c);
-        onUpdateScrollbar();
-        mScrollbar.draw(c);
+        if (mFastScrollEnabled) {
+            onUpdateScrollbar();
+            mScrollbar.draw(c);
+        }
+    }
+
+    public void setFastScrollEnabled(boolean fastScrollEnabled) {
+        mFastScrollEnabled = fastScrollEnabled;
     }
 
     /**
